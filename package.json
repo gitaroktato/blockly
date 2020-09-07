@@ -33,8 +33,8 @@
  "scripts": {
   "postinstall": "electron-builder install-app-deps",
   "start": "electron .",
-  "compiler": "build --win --ia32",
-  "publier": "build --win --ia32 -p always"
+  "compiler": "build --linux --x64",
+  "publier": "build --linux --x64 -p always"
  },
  "build": {
   "appId": "com.electron.blocklino",
@@ -103,6 +103,6 @@
   "ajv": "6.10.0",
   "child_process": "1.0.2",
   "electron-updater": "4.0.6",
-  "serialport": "7.1.4"
+  "serialport": "^8.0.4"
  }
 }
