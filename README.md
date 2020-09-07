@@ -49,6 +49,33 @@ The more people helping to translate the better, it is important to translate wh
 7. [Join the Otto Builder community and share them!](https://www.ottodiy.com/#join-us) 
 8. [Subscribe to our YouTube channel for tutorials](https://www.youtube.com/c/ottodiy?sub_confirmation=1)
 
+## How to Build?
+
+### Install Python 2.7 with miniconda
+```bash
+...
+```
+
+### Install Node JS > 10
+
+### Istall VisualStudio BuildTools ???
+https://chocolatey.org/packages/visualstudio2017buildtools
+
+### Fix MSBuild errors
+If you need it, then https://github.com/nodejs/node-gyp/issues/1663#issuecomment-480762647
+```
+npm config set msbuild_path "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
+```
+```
+npm config set msbuild_path "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe"
+```
+
+### Fix Error 141
+https://stackoverflow.com/a/49653531/8321787
+
+### Serialport binding error
+https://mhabib555.wordpress.com/2019/12/06/nodejs-serialport-gsm-building-error-on-electron-using-electron-builder-npm-run-dist/
+
 ## Attribution
 
 Thanks to all these tools created by great people. that without them, would have not been possible to make this project:
