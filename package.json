@@ -33,6 +33,7 @@
  "scripts": {
   "postinstall": "electron-builder install-app-deps",
   "start": "electron .",
+  "debug": "electron --inspect .",
   "compiler": "build --linux --x64",
   "publier": "build --linux --x64 -p always"
  },
