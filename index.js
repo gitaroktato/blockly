@@ -4,6 +4,7 @@ var sp = require('serialport')
 var fs = require('fs')
 var path = require('path')
 var appVersion = window.require('electron').remote.app.getVersion()
+var arduinoBaseDir = __dirname + '/compilation/arduino/'
 
 window.addEventListener('load', function load(event) {
 	var quitDiv = '<button type="button" class="close" data-dismiss="modal" aria-label="Close">&#215;</button>'
@@ -164,7 +165,7 @@ window.addEventListener('load', function load(event) {
 			fs.writeFile('./compilation/arduino/ino/sketch.ino', data, function(err){
 				if (err) return console.log(err)
 			})
-			exec('verify.bat ' + carte, {cwd:'./compilation/arduino'}, function(err, stdout, stderr){
+			exec(arduinoBaseDir + 'verify.sh ' + carte, {cwd:'./compilation/arduino'}, function(err, stdout, stderr){
 				if (stderr) {
 					rech=RegExp('token')
 					if (rech.test(stderr)){
@@ -201,7 +202,7 @@ window.addEventListener('load', function load(event) {
 			fs.writeFile('./compilation/arduino/ino/sketch.ino', data, function(err){
 				if (err) return console.log(err)
 			})
-			exec('verify.bat ' + carte, {cwd:'./compilation/arduino'}, function(err, stdout, stderr){
+			exec(arduinoBaseDir + 'verify.sh ' + carte, {cwd:'./compilation/arduino'}, function(err, stdout, stderr){
 				if (stderr) {
 					rech=RegExp('token')
 					if (rech.test(stderr)){
@@ -219,7 +220,7 @@ window.addEventListener('load', function load(event) {
 			messageDiv.style.color = '#000000'
 			messageDiv.innerHTML = Blockly.Msg.upload + '<i class="fa fa-spinner fa-pulse fa-1_5x fa-fw"></i>'
 		
-			exec('flash.bat ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
+			exec(arduinoBaseDir + 'flash.sh ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
 				if (err) {
 					messageDiv.style.color = '#ff0000'
 					messageDiv.innerHTML = err.toString() + quitDiv
@@ -280,7 +281,7 @@ window.addEventListener('load', function load(event) {
 				})
 			}
 		} else {
-			exec('flash.bat ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
+			exec('./compilation/arduino/flash.sh ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
 				if (err) {
 					messageDiv.style.color = '#ff0000'
 					messageDiv.innerHTML = err.toString() + quitDiv
