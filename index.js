@@ -26,7 +26,8 @@ window.addEventListener('load', function load(event) {
 		shell.openExternal('https://www.ottodiy.com/#contact-us')
 	})
 	$('#portserie').mouseover(function(){
-		sp.list(function(err,ports) {
+		// TODO we should check for errors returned.
+		sp.list().then(function(ports) {
 			var nb_com = localStorage.getItem("nb_com"), menu_opt = portserie.getElementsByTagName('option')
 			if(ports.length > nb_com){
 				ports.forEach(function(port){
@@ -91,7 +92,8 @@ window.addEventListener('load', function load(event) {
 			})
 		}
 	})
-	sp.list(function(err,ports){
+	// TODO we should check for errors returned.
+	sp.list().then(function(ports) {
 		var opt = document.createElement('option')
 		opt.value = "com"
 		opt.text = Blockly.Msg.com1
