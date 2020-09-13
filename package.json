@@ -35,7 +35,8 @@
   "start": "electron .",
   "debug": "electron --inspect .",
   "compiler": "build --linux --x64",
-  "publier": "build --linux --x64 -p always"
+  "publier": "build --linux --x64 -p always",
+  "deb64": "electron-installer-debian --src dist/linux-unpacked --dest dist/installers/ --arch amd64"
  },
  "build": {
   "appId": "com.electron.blocklino",
