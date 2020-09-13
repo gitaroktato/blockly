@@ -165,7 +165,8 @@ window.addEventListener('load', function load(event) {
 			fs.writeFile('./compilation/arduino/ino/sketch.ino', data, function(err){
 				if (err) return console.log(err)
 			})
-			var location = currentWindow.browserAddons.getPathForExecutable('arduino/verify.sh')
+			var command = currentWindow.browserAddons.getArduinoCommandForVefiry()
+			var location = currentWindow.browserAddons.getPathForExecutable(command)
 			exec(location + ' ' + carte, {cwd:'./compilation/arduino'}, function(err, stdout, stderr){
 				if (stderr) {
 					rech=RegExp('token')
@@ -203,7 +204,8 @@ window.addEventListener('load', function load(event) {
 			fs.writeFile('./compilation/arduino/ino/sketch.ino', data, function(err){
 				if (err) return console.log(err)
 			})
-			var location = currentWindow.browserAddons.getPathForExecutable('arduino/verify.sh')
+			var command = currentWindow.browserAddons.getArduinoCommandForVefiry()
+			var location = currentWindow.browserAddons.getPathForExecutable(command)
 			exec(location + ' ' + carte, {cwd:'./compilation/arduino'}, function(err, stdout, stderr){
 				if (stderr) {
 					rech=RegExp('token')
@@ -222,7 +224,8 @@ window.addEventListener('load', function load(event) {
 			messageDiv.style.color = '#000000'
 			messageDiv.innerHTML = Blockly.Msg.upload + '<i class="fa fa-spinner fa-pulse fa-1_5x fa-fw"></i>'
 		
-			var location = currentWindow.browserAddons.getPathForExecutable('arduino/flash.sh')
+			var command = currentWindow.browserAddons.getArduinoCommandForFlash()
+			var location = currentWindow.browserAddons.getPathForExecutable(command)
 			exec(location + ' ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
 				if (err) {
 					messageDiv.style.color = '#ff0000'
@@ -284,7 +287,8 @@ window.addEventListener('load', function load(event) {
 				})
 			}
 		} else {
-			var location = currentWindow.browserAddons.getPathForExecutable('arduino/flash.sh')
+			var command = currentWindow.browserAddons.getArduinoCommandForFlash()
+			var location = currentWindow.browserAddons.getPathForExecutable(command)
 			exec(location + ' ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
 				if (err) {
 					messageDiv.style.color = '#ff0000'

@@ -39,6 +39,26 @@ var browserAddons = {
 		} else {
 			return '../resources/app/' + fileName
 		}
+	},
+
+	getArduinoCommandForVefiry: function() {
+		if (process.platform === 'linux') {
+			return 'arduino/verify.sh'
+		} else if (process.platform === 'win32') {
+			return 'arduino/verify.bat'
+		} else {
+			console.error(`Unspecified platform ${process.platform} for Arduino verify`)
+		}
+	},
+	
+	getArduinoCommandForFlash: function() {
+		if (process.platform === 'linux') {
+			return 'arduino/flash.sh'
+		} else if (process.platform === 'win32') {
+			return 'arduino/flash.bat'
+		} else {
+			console.error(`Unspecified platform ${process.platform} for Arduino flash`)
+		}
 	}
 }
 
