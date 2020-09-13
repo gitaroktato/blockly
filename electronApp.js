@@ -19,7 +19,7 @@ function getPathForResource(fileName) {
 	}
 	return path.join("file://", __dirname, location)
 }
-// TODO add a common property for the functions. e.g. var browserAddons = {...}
+
 var browserAddons = {
 	getPathForExecutable: function(fileName) {
 		if (process.env.NODE_ENV === 'development') {
