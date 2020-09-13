@@ -9,6 +9,7 @@ var promptOptions
 var promptAnswer
 autoUpdater.autoDownload = false
 autoUpdater.logger = null
+// This is required to load up native serialport module. See: https://github.com/electron/electron/issues/18397
 app.allowRendererProcessReuse = false
 
 function getPathForResource(fileName) {
