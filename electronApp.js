@@ -43,9 +43,9 @@ var browserAddons = {
 
 	getArduinoCommandForVefiry: function() {
 		if (process.platform === 'linux') {
-			return 'arduino/verify.sh'
+			return 'linux/arduino/verify.sh'
 		} else if (process.platform === 'win32') {
-			return 'arduino/verify.bat'
+			return 'win32/arduino/verify.bat'
 		} else {
 			console.error(`Unspecified platform ${process.platform} for Arduino verify`)
 		}
@@ -53,9 +53,9 @@ var browserAddons = {
 	
 	getArduinoCommandForFlash: function() {
 		if (process.platform === 'linux') {
-			return 'arduino/flash.sh'
+			return 'linux/arduino/flash.sh'
 		} else if (process.platform === 'win32') {
-			return 'arduino/flash.bat'
+			return 'win32/arduino/flash.bat'
 		} else {
 			console.error(`Unspecified platform ${process.platform} for Arduino flash`)
 		}
