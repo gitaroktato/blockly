@@ -32,10 +32,12 @@
  ],
  "scripts": {
   "postinstall": "electron-builder install-app-deps",
-  "start": "electron .",
-  "debug": "electron --inspect .",
-  "compiler": "build --linux --x64",
-  "publier": "build --linux --x64 -p always",
+  "start": "NODE_ENV=development electron .",
+  "debug": "NODE_ENV=development electron --inspect .",
+  "compiler-win": "build --win --ia32",
+  "publier-win": "build --win --ia32 -p always",
+  "compiler-linux": "build --linux --x64",
+  "publier-linux": "build --linux --x64 -p always",
   "deb64": "electron-installer-debian --src dist/linux-unpacked --dest dist/installers/ --arch amd64"
  },
  "build": {

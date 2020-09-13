@@ -12,24 +12,42 @@ autoUpdater.logger = null
 app.allowRendererProcessReuse = false
 
 function getPathForResource(fileName) {
-	return path.join("file://", __dirname, "www/" + fileName)
+	if (process.env.NODE_ENV === 'development') {
+		var location = "www/" + fileName
+	} else {
+		var location = "../../www/" + fileName
+	}
+	return path.join("file://", __dirname, location)
+}
+// TODO add a common property for the functions. e.g. var browserAddons = {...}
+function getPathForExecutable(fileName) {
+	if (process.env.NODE_ENV === 'development') {
+		var location =  "compilation/" + fileName
+	} else {
+		var location =  "../../compilation/" + fileName
+	}
+	return path.join(__dirname, location)
 }
 /**
  * Using this guide to share methods between renderer and browser side
  * https://github.com/electron/electron/issues/1095
  */
 function getPathForResourceInBrowser(fileName) {
-	return '../' + fileName
+	if (process.env.NODE_ENV === 'development') {
+		return '../' + fileName
+	} else {
+		return '../resources/app/' + fileName
+	}
 }
 
 function createWindow () {
 	mainWindow = new BrowserWindow({width: 1240, height: 700, icon: 'www/media/icon.png', frame: false, movable: true, webPreferences: {
 		nodeIntegration: true
 	}})
+	var current_path = getPathForResource('index.html')
 	if (process.platform == 'win32' && process.argv.length >= 2) {
-		mainWindow.loadURL(path.join(__dirname, '../../www/index.html?url='+process.argv[1]))
+		mainWindow.loadURL(path.join(__dirname, current_path + '?url='+process.argv[1]))
 	} else {
-		var current_path = getPathForResource('index.html')
 		mainWindow.loadURL(current_path)
 	}
 	mainWindow.setMenu(null)
@@ -37,6 +55,7 @@ function createWindow () {
 		mainWindow = null
 	})
 	mainWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
+	mainWindow.getPathForExecutable = getPathForExecutable
 }
 
 function createTerm() {
@@ -49,6 +68,7 @@ function createTerm() {
 		termWindow = null 
 	})
 	termWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
+	termWindow.getPathForExecutable = getPathForExecutable
 }
 function createRepl() {
 	termWindow = new BrowserWindow({width: 640, height: 515, 'parent': mainWindow, resizable: false, movable: true, frame: false, modal: true, webPreferences: {
@@ -60,6 +80,7 @@ function createRepl() {
 		termWindow = null 
 	})
 	termWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
+	termWindow.getPathForExecutable = getPathForExecutable
 }
 function createfactory() {
 	factoryWindow = new BrowserWindow({width: 1066, height: 640, 'parent': mainWindow, resizable: true, movable: true, frame: false, webPreferences: {
@@ -71,6 +92,7 @@ function createfactory() {
 		factoryWindow = null 
 	})
 	factoryWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
+	factoryWindow.getPathForExecutable = getPathForExecutable
 }
 function promptModal(options, callback) {
 	promptOptions = options
@@ -83,6 +105,7 @@ function promptModal(options, callback) {
 		callback(promptAnswer)
 	})
 	promptWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
+	promptWindow.getPathForExecutable = getPathForExecutable
 }
 function open_console(mainWindow = BrowserWindow.getFocusedWindow()) {
 	if (mainWindow) mainWindow.webContents.toggleDevTools()
