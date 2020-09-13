@@ -281,7 +281,7 @@ window.addEventListener('load', function load(event) {
 				})
 			}
 		} else {
-			exec('./compilation/arduino/flash.sh ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
+			exec(arduinoBaseDir + 'flash.sh ' + cpu + ' ' + prog + ' '+ com + ' ' + speed, {cwd: './compilation/arduino'} , function(err, stdout, stderr){
 				if (err) {
 					messageDiv.style.color = '#ff0000'
 					messageDiv.innerHTML = err.toString() + quitDiv
