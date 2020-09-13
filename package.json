@@ -37,8 +37,7 @@
   "compiler-win": "build --win --ia32",
   "publier-win": "build --win --ia32 -p always",
   "compiler-linux": "build --linux --x64",
-  "publier-linux": "build --linux --x64 -p always",
-  "deb64": "electron-installer-debian --src dist/linux-unpacked --dest dist/installers/ --arch amd64"
+  "publier-linux": "build --linux --x64 -p always"
  },
  "build": {
   "appId": "com.electron.blocklino",
