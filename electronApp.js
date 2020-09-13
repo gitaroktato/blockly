@@ -10,6 +10,11 @@ var promptAnswer
 autoUpdater.autoDownload = false
 autoUpdater.logger = null
 app.allowRendererProcessReuse = false
+
+function getPathForResource(fileName) {
+	return path.join("file://", __dirname, "www/" + fileName)
+}
+
 function createWindow () {
 	mainWindow = new BrowserWindow({width: 1240, height: 700, icon: 'www/media/icon.png', frame: false, movable: true, webPreferences: {
 		nodeIntegration: true
@@ -17,7 +22,7 @@ function createWindow () {
 	if (process.platform == 'win32' && process.argv.length >= 2) {
 		mainWindow.loadURL(path.join(__dirname, '../../www/index.html?url='+process.argv[1]))
 	} else {
-		var current_path = path.join("file://", __dirname, "www/index.html")
+		var current_path = getPathForResource('index.html')
 		mainWindow.loadURL(current_path)
 	}
 	mainWindow.setMenu(null)
@@ -29,7 +34,7 @@ function createTerm() {
 	termWindow = new BrowserWindow({width: 640, height: 560, 'parent': mainWindow, resizable: false, movable: true, frame: false, modal: true, webPreferences: {
 		nodeIntegration: true
 	}}) 
-	termWindow.loadURL(path.join("file://", __dirname, "www/term.html"))
+	termWindow.loadURL(getPathForResource('term.html'))
 	termWindow.setMenu(null)
 	termWindow.on('closed', function () { 
 		termWindow = null 
@@ -39,7 +44,7 @@ function createRepl() {
 	termWindow = new BrowserWindow({width: 640, height: 515, 'parent': mainWindow, resizable: false, movable: true, frame: false, modal: true, webPreferences: {
 		nodeIntegration: true
 	}}) 
-	termWindow.loadURL(path.join("file://", __dirname, "www/repl.html"))
+	termWindow.loadURL(getPathForResource('repl.html'))
 	termWindow.setMenu(null)
 	termWindow.on('closed', function () { 
 		termWindow = null 
@@ -49,7 +54,7 @@ function createfactory() {
 	factoryWindow = new BrowserWindow({width: 1066, height: 640, 'parent': mainWindow, resizable: true, movable: true, frame: false, webPreferences: {
 		nodeIntegration: true
 	}})
-	factoryWindow.loadURL(path.join("file://", __dirname, "www/factory.html"))
+	factoryWindow.loadURL(getPathForResource('factory.html'))
 	factoryWindow.setMenu(null)
 	factoryWindow.on('closed', function () { 
 		factoryWindow = null 
@@ -60,7 +65,7 @@ function promptModal(options, callback) {
 	promptWindow = new BrowserWindow({width:360, height: 135, 'parent': mainWindow, resizable: false, movable: true, frame: false, modal: true, webPreferences: {
 		nodeIntegration: true
 	}})
-	promptWindow.loadURL(path.join("file://", __dirname, "www/modalVar.html"))
+	promptWindow.loadURL(getPathForResource('modalVar.html'))
 	promptWindow.on('closed', function () { 
 		promptWindow = null 
 		callback(promptAnswer)
