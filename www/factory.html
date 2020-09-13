@@ -86,5 +86,9 @@
 		</category>
 	</xml>
 </body>
-<script>require('../factory.js')</script>
+<script>
+	var { remote } = require('electron');
+	var currentWindow = remote.getCurrentWindow();
+	require(currentWindow.getPathForResourceInBrowser('factory.js'))
+</script>
 </html>

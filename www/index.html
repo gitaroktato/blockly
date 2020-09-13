@@ -39,6 +39,7 @@
 	<script type="text/javascript" src="js/intel-hex.browser.js"></script>
 	<script type="text/javascript" src="js/ace.js"></script>
 	<script type="text/javascript" src="js/ext-language_tools.js"></script>
+	<script type="text/javascript" src="js/electron_helper.js"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.3.3.6.css"/>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.toggle.min.css"/>
@@ -366,7 +367,9 @@
     editor.setTheme("ace/theme/sqlserver");
 	editor.session.setTabSize(2);
 	editor.setShowPrintMargin(false);
-	require('../index.js');
-	require('../factory.js');
+	var { remote } = require('electron');
+	var currentWindow = remote.getCurrentWindow();
+	require(currentWindow.getPathForResourceInBrowser('index.js'))
+	require(currentWindow.getPathForResourceInBrowser('factory.js'))
 </script>
 </html>

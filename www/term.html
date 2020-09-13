@@ -58,5 +58,9 @@
 		</div>
 	</div>
 </body>
-<script>require('../resources/app/term.js')</script>
+<script>
+	var { remote } = require('electron');
+	var currentWindow = remote.getCurrentWindow();
+	require(currentWindow.getPathForResourceInBrowser('term.js'))
+</script>
 </html>

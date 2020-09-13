@@ -1,4 +1,4 @@
-var {electron, ipcMain, app, BrowserWindow, globalShortcut, dialog} = require('electron')
+var {ipcMain, app, BrowserWindow, globalShortcut, dialog} = require('electron')
 var { autoUpdater } = require("electron-updater")
 var path = require('path')
 var mainWindow
@@ -13,6 +13,13 @@ app.allowRendererProcessReuse = false
 
 function getPathForResource(fileName) {
 	return path.join("file://", __dirname, "www/" + fileName)
+}
+/**
+ * Using this guide to share methods between renderer and browser side
+ * https://github.com/electron/electron/issues/1095
+ */
+function getPathForResourceInBrowser(fileName) {
+	return '../' + fileName
 }
 
 function createWindow () {
@@ -29,7 +36,9 @@ function createWindow () {
 	mainWindow.on('closed', function () {
 		mainWindow = null
 	})
+	mainWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
 }
+
 function createTerm() {
 	termWindow = new BrowserWindow({width: 640, height: 560, 'parent': mainWindow, resizable: false, movable: true, frame: false, modal: true, webPreferences: {
 		nodeIntegration: true
@@ -39,6 +48,7 @@ function createTerm() {
 	termWindow.on('closed', function () { 
 		termWindow = null 
 	})
+	termWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
 }
 function createRepl() {
 	termWindow = new BrowserWindow({width: 640, height: 515, 'parent': mainWindow, resizable: false, movable: true, frame: false, modal: true, webPreferences: {
@@ -49,6 +59,7 @@ function createRepl() {
 	termWindow.on('closed', function () { 
 		termWindow = null 
 	})
+	termWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
 }
 function createfactory() {
 	factoryWindow = new BrowserWindow({width: 1066, height: 640, 'parent': mainWindow, resizable: true, movable: true, frame: false, webPreferences: {
@@ -59,6 +70,7 @@ function createfactory() {
 	factoryWindow.on('closed', function () { 
 		factoryWindow = null 
 	})
+	factoryWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
 }
 function promptModal(options, callback) {
 	promptOptions = options
@@ -70,6 +82,7 @@ function promptModal(options, callback) {
 		promptWindow = null 
 		callback(promptAnswer)
 	})
+	promptWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
 }
 function open_console(mainWindow = BrowserWindow.getFocusedWindow()) {
 	if (mainWindow) mainWindow.webContents.toggleDevTools()
