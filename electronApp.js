@@ -20,23 +20,25 @@ function getPathForResource(fileName) {
 	return path.join("file://", __dirname, location)
 }
 // TODO add a common property for the functions. e.g. var browserAddons = {...}
-function getPathForExecutable(fileName) {
-	if (process.env.NODE_ENV === 'development') {
-		var location =  "compilation/" + fileName
-	} else {
-		var location =  "../../compilation/" + fileName
-	}
-	return path.join(__dirname, location)
-}
-/**
- * Using this guide to share methods between renderer and browser side
- * https://github.com/electron/electron/issues/1095
- */
-function getPathForResourceInBrowser(fileName) {
-	if (process.env.NODE_ENV === 'development') {
-		return '../' + fileName
-	} else {
-		return '../resources/app/' + fileName
+var browserAddons = {
+	getPathForExecutable: function(fileName) {
+		if (process.env.NODE_ENV === 'development') {
+			var location =  "compilation/" + fileName
+		} else {
+			var location =  "../../compilation/" + fileName
+		}
+		return path.join(__dirname, location)
+	},
+	/**
+	 * Using this guide to share methods between renderer and browser side
+	 * https://github.com/electron/electron/issues/1095
+	 */
+	getPathForResource: function(fileName) {
+		if (process.env.NODE_ENV === 'development') {
+			return '../' + fileName
+		} else {
+			return '../resources/app/' + fileName
+		}
 	}
 }
 
@@ -54,8 +56,7 @@ function createWindow () {
 	mainWindow.on('closed', function () {
 		mainWindow = null
 	})
-	mainWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
-	mainWindow.getPathForExecutable = getPathForExecutable
+	mainWindow.browserAddons = browserAddons
 }
 
 function createTerm() {
@@ -68,7 +69,7 @@ function createTerm() {
 		termWindow = null 
 	})
 	termWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
-	termWindow.getPathForExecutable = getPathForExecutable
+	termWindow.browserAddons = browserAddons
 }
 function createRepl() {
 	termWindow = new BrowserWindow({width: 640, height: 515, 'parent': mainWindow, resizable: false, movable: true, frame: false, modal: true, webPreferences: {
@@ -79,8 +80,7 @@ function createRepl() {
 	termWindow.on('closed', function () { 
 		termWindow = null 
 	})
-	termWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
-	termWindow.getPathForExecutable = getPathForExecutable
+	termWindow.browserAddons = browserAddons
 }
 function createfactory() {
 	factoryWindow = new BrowserWindow({width: 1066, height: 640, 'parent': mainWindow, resizable: true, movable: true, frame: false, webPreferences: {
@@ -91,8 +91,7 @@ function createfactory() {
 	factoryWindow.on('closed', function () { 
 		factoryWindow = null 
 	})
-	factoryWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
-	factoryWindow.getPathForExecutable = getPathForExecutable
+	factoryWindow.browserAddons = browserAddons
 }
 function promptModal(options, callback) {
 	promptOptions = options
@@ -104,8 +103,7 @@ function promptModal(options, callback) {
 		promptWindow = null 
 		callback(promptAnswer)
 	})
-	promptWindow.getPathForResourceInBrowser = getPathForResourceInBrowser
-	promptWindow.getPathForExecutable = getPathForExecutable
+	promptWindow.browserAddons = browserAddons
 }
 function open_console(mainWindow = BrowserWindow.getFocusedWindow()) {
 	if (mainWindow) mainWindow.webContents.toggleDevTools()

@@ -369,7 +369,7 @@
 	editor.setShowPrintMargin(false);
 	var { remote } = require('electron');
 	var currentWindow = remote.getCurrentWindow();
-	require(currentWindow.getPathForResourceInBrowser('index.js'))
-	require(currentWindow.getPathForResourceInBrowser('factory.js'))
+	require(currentWindow.browserAddons.getPathForResource('index.js'))
+	require(currentWindow.browserAddons.getPathForResource('factory.js'))
 </script>
 </html>

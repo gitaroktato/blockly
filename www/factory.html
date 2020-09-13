@@ -89,6 +89,6 @@
 <script>
 	var { remote } = require('electron');
 	var currentWindow = remote.getCurrentWindow();
-	require(currentWindow.getPathForResourceInBrowser('factory.js'))
+	require(currentWindow.browserAddons.getPathForResource('factory.js'))
 </script>
 </html>

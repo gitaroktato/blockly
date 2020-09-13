@@ -28,6 +28,6 @@
 <script>
 	var { remote } = require('electron');
 	var currentWindow = remote.getCurrentWindow();
-	require(currentWindow.getPathForResourceInBrowser('repl.js'))
+	require(currentWindow.browserAddons.getPathForResource('repl.js'))
 </script>
 </html>
